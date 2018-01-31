@@ -11,11 +11,13 @@ func main() {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
+
 	models.Queue = make(chan models.Message, 600)
-	models.Worker = make(chan int, 3)
-	models.Worker <-1
-	models.Worker <-2
-	models.Worker <-3
+	models.Worker = make(chan int, 100)
+
+	for id := 0 ; id < 100 ; id ++{
+		models.Worker <-id
+	}
 	//for len(models.Worker) > 0{
 	//	w := <- models.Worker
 	//	go models.WriteToDisk(w)

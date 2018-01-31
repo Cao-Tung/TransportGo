@@ -2,9 +2,9 @@ package models
 
 import (
 	"fmt"
-	//"encoding/json"
-	//"os"
-	"time"
+	"os"
+	"encoding/json"
+	"io/ioutil"
 )
 
 type Message struct {
@@ -20,20 +20,36 @@ func RecMessage(message Message) {
 	fmt.Println(len(Queue))
 }
 
-func WriteToDisk(id int){
-	fmt.Println("worker ", id, <- Queue)
-	time.Sleep(time.Second)
+func WriteToDisk(id int) bool{
 	Worker <-id
+	message := <-Queue
+	if _, err := os.Stat("output.json"); err == nil {
+		f, _ := os.OpenFile("output.json", os.O_APPEND|os.O_WRONLY, 0600)
+		rs, _ := json.Marshal(message)
+		if _, err := f.Write(rs); err != nil {
+			panic(err)
+		}
+		return true
+	}else {
+		jsonData, _  := json.Marshal(message)
+		ioutil.WriteFile("output.json", jsonData, 0600)
+		return true
+	}
+	return false
 	//f, err := os.OpenFile("output.json", os.O_APPEND|os.O_WRONLY, 0600)
 	//if err != nil {
+	//	//jsonData, _  := json.Marshal(<-Queue)
+	//	//ioutil.WriteFile("output.json", jsonData, 0600)
 	//	panic(err)
 	//}
 	//defer f.Close()
-	//time.Sleep(time.Second)
-	//message := <- Queue
-	//rs,_  := json.Marshal(message)
-	//if _, err = f.Write(rs); err != nil {
-	//	panic(err)
+	//
+	//if err == nil {
+	//	message := <-Queue
+	//	rs, _ := json.Marshal(message)
+	//	if _, err = f.Write(rs); err != nil {
+	//		panic(err)
+	//	}
 	//}
 }
 
