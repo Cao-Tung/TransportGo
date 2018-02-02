@@ -12,6 +12,7 @@ type Message struct {
 	Content   string
 }
 
+var MaxLenQueue int = 600
 // Message Queue
 var Queue chan(Message)
 
@@ -20,14 +21,19 @@ var Worker chan(int)
 
 // Recv message, push to message queue
 func RecMessage(message Message) {
-	Queue <- message
-	fmt.Println(len(Queue))
+	if len(Queue) < MaxLenQueue{
+		Queue <- message
+		fmt.Println("Lenght Queue : ", len(Queue))
+	}else {
+		fmt.Println("Full Queue")
+	}
 }
 
 // func write message to disk
 func WriteToDisk(id int) bool{
 	Worker <-id
 	message := <-Queue
+	fmt.Println("Worker ", id, "execute Message")
 
 	// check exits file output
 	if _, err := os.Stat("output.json"); err == nil {

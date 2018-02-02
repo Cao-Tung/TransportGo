@@ -13,11 +13,11 @@ func main() {
 	}
 
 	// init Message Queue
-	models.Queue = make(chan models.Message, 600)
+	models.Queue = make(chan models.Message, models.MaxLenQueue)
 
 	// init Worker pool
-	models.Worker = make(chan int, 100)
-	for id := 0 ; id < 100 ; id ++{
+	models.Worker = make(chan int, 10)
+	for id := 0 ; id < 3 ; id ++{
 		models.Worker <-id
 	}
 	//for len(models.Worker) > 0{
