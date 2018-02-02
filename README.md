@@ -2,7 +2,7 @@
 
 ## Test perform by go-wrk
 
-# 1 worker
+### 1 worker
 
 Running 5s test @ http://127.0.0.1:8080/v1/message/
   10 goroutine(s) running concurrently
@@ -14,7 +14,7 @@ Fastest Request:	106.031µs
 Slowest Request:	32.267381ms
 Number of Errors:	0
 
-# 2 worker 
+### 2 worker 
 
 Running 5s test @ http://127.0.0.1:8080/v1/message/
   10 goroutine(s) running concurrently
@@ -26,7 +26,7 @@ Fastest Request:	99.165µs
 Slowest Request:	19.171356ms
 Number of Errors:	0
 
-# 3 worker 
+### 3 worker 
 
 Running 5s test @ http://127.0.0.1:8080/v1/message/
   10 goroutine(s) running concurrently
