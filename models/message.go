@@ -7,22 +7,29 @@ import (
 	"io/ioutil"
 )
 
+
 type Message struct {
 	Content   string
 }
 
+// Message Queue
 var Queue chan(Message)
 
+// Worker pool
 var Worker chan(int)
 
+// Recv message, push to message queue
 func RecMessage(message Message) {
 	Queue <- message
 	fmt.Println(len(Queue))
 }
 
+// func write message to disk
 func WriteToDisk(id int) bool{
 	Worker <-id
 	message := <-Queue
+
+	// check exits file output
 	if _, err := os.Stat("output.json"); err == nil {
 		f, _ := os.OpenFile("output.json", os.O_APPEND|os.O_WRONLY, 0600)
 		rs, _ := json.Marshal(message)

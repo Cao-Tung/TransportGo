@@ -12,9 +12,11 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
+	// init Message Queue
 	models.Queue = make(chan models.Message, 600)
-	models.Worker = make(chan int, 100)
 
+	// init Worker pool
+	models.Worker = make(chan int, 100)
 	for id := 0 ; id < 100 ; id ++{
 		models.Worker <-id
 	}
@@ -23,6 +25,7 @@ func main() {
 	//	go models.WriteToDisk(w)
 	//}
 
+	// Worker execute message in pool, write to disk
 	go func() {
 		for {
 			w := <- models.Worker
