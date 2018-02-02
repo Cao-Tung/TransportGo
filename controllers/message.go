@@ -4,7 +4,6 @@ import (
 	"github.com/astaxie/beego"
 	"encoding/json"
 	"svGo/models"
-	"fmt"
 )
 
 // Operations about message
@@ -23,7 +22,6 @@ func (ms *MessageController) Post() {
 	json.Unmarshal(ms.Ctx.Input.RequestBody, &message)
 	models.RecMessage(message)
 	ms.Data["json"] = message
-	fmt.Println(message)
 	ms.ServeJSON()
 }
 

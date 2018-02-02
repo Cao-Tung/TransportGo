@@ -22,6 +22,7 @@ func main() {
 	//	w := <- models.Worker
 	//	go models.WriteToDisk(w)
 	//}
+
 	go func() {
 		for {
 			w := <- models.Worker
