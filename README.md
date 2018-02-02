@@ -5,9 +5,13 @@
 ### 1 worker
 
 Running 5s test @ http://127.0.0.1:8080/v1/message/
+
   10 goroutine(s) running concurrently
+  
 43379 requests in 4.956300126s, 6.29MB read
+
 Requests/sec:		8752.29
+
 Transfer/sec:		1.27MB
 Avg Req Time:		1.142557ms
 Fastest Request:	106.031µs
